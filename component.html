@@ -1,4 +1,4 @@
-<element name="jpka-elements-collection">
+<element name="jpka-sl">
   <template>
     <style>
       @host {}
@@ -7,7 +7,9 @@
   </template>
   <script>
     Polymer.register(this, {
-      elements: [],
+      get items() {
+        return this.$.list.childNodes;
+      },
       addBatch: function(tagName, attrsList) {
         var self = this;
         attrsList = attrsList || [];
@@ -19,7 +21,6 @@
           Object.keys(attrs).forEach(function(attr) {
             element[attr] = attrs[attr];
           });
-          self.elements.push(element);
           li.appendChild(element);
           self.$.list.appendChild(li);
         });

@@ -1,42 +1,34 @@
-describe("element-collection", function() {  
+describe("sl", function() {  
   var element;
 
-  before(function() {
-    element = fixtures.window().document.createElement("jpka-elements-collection");
+  beforeEach(function() {
+    element = fixtures.window().document.createElement("jpka-sl");
   });
 
-  it("has a list", function() {
-    expect(element.$.list).to.exist;
+  describe("items property", function() {
+    it("gets", function() {
+      element.$.list.appendChild(document.createElement("div"));
+      expect(element.items).to.deep.equal(element.$.list.childNodes);
+    });
   });
 
-  describe("addBatch()", function() {
-    var models;
+  it("addBatch() adds a batch of elements, attaching properties to them", function() {
+    var models = ["a", "b", "c"].map(function(text) {
+      return {
+        model: {
+          body: text
+        }
+      };
+    }),
+    childs;
+    element.addBatch("single-element", models);
+    childs = element.$.list.childNodes;
 
-    before(function() {
-      models = ["a", "b", "c"].map(function(text) {
-        return {
-          model: {
-            body: text
-          }
-        };
-      });
-      element.addBatch("single-element", models);
-    });
-
-    it("adds a batch of elements, attaching properties to them", function() {
-      expect(element.elements.length).to.equal(3);
-      element.elements.forEach(function(ele) {
-        expect(ele.tagName).to.equal("SINGLE-ELEMENT");
-        expect(ele.model).to.have.property("body");
-      });
-    });
-
-    it("also aggregates them to the list as list items", function() {
-      expect(element.$.list.childNodes.length).to.equal(element.elements.length);
-      element.$.list.childNodes.forEach(function(ele) {
-        expect(ele.tagName).to.equal("LI");
-        expect(ele.childNodes[0].tagName).to.equal("SINGLE-ELEMENT");
-      });
+    expect(childs.length).to.equal(3);
+    childs.forEach(function(ele) {
+      expect(ele.nodeName).to.equal("LI");
+      expect(ele.childNodes[0].nodeName).to.equal("SINGLE-ELEMENT");
+      expect(ele.childNodes[0].model).to.exist.and.to.have.property("body");
     });
   });
 });
