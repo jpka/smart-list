@@ -1,10 +1,29 @@
-<element name="my-element">
+<element name="jpka-elements-collection">
   <template>
     <style>
       @host {}
     </style>  
+    <ul id="list"></ul>
   </template>
   <script>
-    Polymer.register(this, {});
+    Polymer.register(this, {
+      elements: [],
+      addBatch: function(tagName, attrsList) {
+        var self = this;
+        attrsList = attrsList || [];
+
+        attrsList.forEach(function(attrs) {
+          var li = document.createElement("li"),
+          element = document.createElement(tagName);
+
+          Object.keys(attrs).forEach(function(attr) {
+            element[attr] = attrs[attr];
+          });
+          self.elements.push(element);
+          li.appendChild(element);
+          self.$.list.appendChild(li);
+        });
+      }
+    });
   </script>
 </element>

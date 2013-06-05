@@ -1,5 +1,5 @@
 {
-  "name": "polyer-web-component-template",
+  "name": "jpka-elements-collection",
   "version": "0.0.0",
   "description": "",
   "directories": {
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jpka/polymer-web-component-template.git"
+    "url": "git://github.com/jpka/jpka-elements-collection.git"
   },
   "author": "Juan Pablo Kaniefsky",
   "license": "MIT"
