@@ -1,0 +1,10 @@
+{
+  "name": "jpka-sl",
+  "version": "0.0.0",
+  "main": "component.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
