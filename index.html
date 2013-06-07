@@ -6,9 +6,8 @@
   </template>
   <script>
     (function(context) {
-      var self;
 
-      function add(nodeName, props) {
+      function add(el, nodeName, props) {
         var element = document.createElement(nodeName),
         prop;
 
@@ -17,36 +16,35 @@
             element[prop] = props[prop];
           }
         }
-        self.appendChild(element);
+        el.appendChild(element);
       }
-      function addBatch(nodeName, num) {
+
+      function addBatch(el, nodeName, num) {
         for (var i = 0; i < num; i++) {
-          add(nodeName);
+          add(el, nodeName);
         }
       }
-      function addBatchWithProps(nodeName, propsList) {
+
+      function addBatchWithProps(el, nodeName, propsList) {
         propsList.forEach(function(props) {
-          add(nodeName, props);
+          add(el, nodeName, props);
         });
       }
 
       Polymer.register(context, {
-        ready: function() {
-          self = this;
-        },
         add: function(nodeName, secondParam) {
           switch (typeof secondParam) {
             case "undefined":
-              add(nodeName);
+              add(this, nodeName);
               break;
             case "number":
-              addBatch(nodeName, secondParam);
+              addBatch(this, nodeName, secondParam);
               break;
             case "object":
               if (Object.prototype.toString.call(secondParam).indexOf("Array") > -1) {
-                addBatchWithProps(nodeName, secondParam);
+                addBatchWithProps(this, nodeName, secondParam);
               } else {
-                add(nodeName, secondParam);
+                add(this, nodeName, secondParam);
               }
               break;
           }
