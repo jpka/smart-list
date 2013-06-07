@@ -1,15 +1,11 @@
-<element name="jpka-sl">
+<element name="jpka-sl" extends="ul">
   <template>
     <style>
       @host {}
     </style>  
-    <ul id="list"></ul>
   </template>
   <script>
     Polymer.register(this, {
-      get items() {
-        return this.$.list.childNodes;
-      },
       addBatch: function(tagName, attrsList) {
         var self = this;
         attrsList = attrsList || [];
@@ -22,7 +18,7 @@
             element[attr] = attrs[attr];
           });
           li.appendChild(element);
-          self.$.list.appendChild(li);
+          self.appendChild(li);
         });
       }
     });
