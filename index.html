@@ -1,26 +1,57 @@
-<element name="jpka-sl" extends="ul">
+<element name="jpka-sl">
   <template>
     <style>
       @host {}
     </style>  
   </template>
   <script>
-    Polymer.register(this, {
-      addBatch: function(tagName, attrsList) {
-        var self = this;
-        attrsList = attrsList || [];
+    (function(context) {
+      var self;
 
-        attrsList.forEach(function(attrs) {
-          var li = document.createElement("li"),
-          element = document.createElement(tagName);
+      function add(nodeName, props) {
+        var element = document.createElement(nodeName),
+        prop;
 
-          Object.keys(attrs).forEach(function(attr) {
-            element[attr] = attrs[attr];
-          });
-          li.appendChild(element);
-          self.appendChild(li);
+        if (props) {
+          for (prop in props) {
+            element[prop] = props[prop];
+          }
+        }
+        self.appendChild(element);
+      }
+      function addBatch(nodeName, num) {
+        for (var i = 0; i < num; i++) {
+          add(nodeName);
+        }
+      }
+      function addBatchWithProps(nodeName, propsList) {
+        propsList.forEach(function(props) {
+          add(nodeName, props);
         });
       }
-    });
+
+      Polymer.register(context, {
+        ready: function() {
+          self = this;
+        },
+        add: function(nodeName, secondParam) {
+          switch (typeof secondParam) {
+            case "undefined":
+              add(nodeName);
+              break;
+            case "number":
+              addBatch(nodeName, secondParam);
+              break;
+            case "object":
+              if (Object.prototype.toString.call(secondParam).indexOf("Array") > -1) {
+                addBatchWithProps(nodeName, secondParam);
+              } else {
+                add(nodeName, secondParam);
+              }
+              break;
+          }
+        }
+      });
+    })(this);
   </script>
 </element>
