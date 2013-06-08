@@ -1,7 +1,7 @@
 {
-  "name": "jpka-sl",
+  "name": "smart-collection",
   "version": "0.0.0",
-  "main": "component.html",
+  "main": "index.html",
   "ignore": [
     "**/.*",
     "node_modules",

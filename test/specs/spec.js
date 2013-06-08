@@ -1,8 +1,8 @@
-describe("sl", function() {  
+describe("smart-collection", function() {  
   var element;
 
   beforeEach(function() {
-    element = fixtures.window().document.createElement("jpka-sl");
+    element = fixtures.window().document.createElement("smart-collection");
   });
 
   describe("add()", function() {
