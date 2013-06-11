@@ -41,4 +41,23 @@ describe("smart-collection", function() {
       });
     });
   });
+
+  describe("get() and remove()", function() {
+    var div;
+
+    beforeEach(function() {
+      div = document.createElement("div");
+      div.id = "a";
+      element.appendChild(div);
+    });
+
+    it("get() retrieves the item by id", function() {
+      expect(element.get("a")).to.deep.equal(div);
+    });
+
+    it("remove() removes the item matching an id", function() {
+      element.remove("a");
+      expect(element.childNodes.length).to.equal(0);
+    });
+  });
 });

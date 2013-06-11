@@ -48,6 +48,12 @@
               }
               break;
           }
+        },
+        get: function(id) {
+          return this.querySelector("#" + id);
+        },
+        remove: function(id) {
+          this.removeChild(this.get(id));
         }
       });
     })(this);
