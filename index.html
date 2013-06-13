@@ -5,57 +5,57 @@
     </style>  
   </template>
   <script>
-    (function(context) {
+    function add(el, nodeName, props) {
+      var element = document.createElement(nodeName),
+      prop;
 
-      function add(el, nodeName, props) {
-        var element = document.createElement(nodeName),
-        prop;
-
-        if (props) {
-          for (prop in props) {
-            element[prop] = props[prop];
-          }
-        }
-        el.appendChild(element);
-      }
-
-      function addBatch(el, nodeName, num) {
-        for (var i = 0; i < num; i++) {
-          add(el, nodeName);
+      if (props) {
+        for (prop in props) {
+          element[prop] = props[prop];
         }
       }
+      el.appendChild(element);
+    }
 
-      function addBatchWithProps(el, nodeName, propsList) {
-        propsList.forEach(function(props) {
-          add(el, nodeName, props);
-        });
+    function addBatch(el, nodeName, num) {
+      for (var i = 0; i < num; i++) {
+        add(el, nodeName);
       }
+    }
 
-      Polymer.register(context, {
-        add: function(nodeName, secondParam) {
-          switch (typeof secondParam) {
-            case "undefined":
-              add(this, nodeName);
-              break;
-            case "number":
-              addBatch(this, nodeName, secondParam);
-              break;
-            case "object":
-              if (Object.prototype.toString.call(secondParam).indexOf("Array") > -1) {
-                addBatchWithProps(this, nodeName, secondParam);
-              } else {
-                add(this, nodeName, secondParam);
-              }
-              break;
-          }
-        },
-        get: function(id) {
-          return this.querySelector("#" + id);
-        },
-        remove: function(id) {
-          this.removeChild(this.get(id));
-        }
+    function addBatchWithProps(el, nodeName, propsList) {
+      propsList.forEach(function(props) {
+        add(el, nodeName, props);
       });
-    })(this);
+    }
+
+    Polymer.register(this, {
+      add: function(nodeName, secondParam) {
+        switch (typeof secondParam) {
+          case "undefined":
+            add(this, nodeName);
+          break;
+          case "number":
+            addBatch(this, nodeName, secondParam);
+          break;
+          case "object":
+            if (Object.prototype.toString.call(secondParam).indexOf("Array") > -1) {
+            addBatchWithProps(this, nodeName, secondParam);
+          } else {
+            add(this, nodeName, secondParam);
+          }
+          break;
+        }
+      },
+      get: function(id) {
+        return this.querySelector("#" + id);
+      },
+      remove: function(id) {
+        this.removeChild(this.get(id));
+      },
+      removeByIndex: function(index) {
+        this.removeChild(this.childNodes[index]);
+      }
+    });
   </script>
 </element>

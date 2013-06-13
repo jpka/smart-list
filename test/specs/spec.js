@@ -60,4 +60,12 @@ describe("smart-collection", function() {
       expect(element.childNodes.length).to.equal(0);
     });
   });
+
+  it("removeByIndex() works", function() {
+    element.add("div", [{id: "a"}, {id: "b"}, {id: "c"}]);
+    element.removeByIndex(1);
+    expect(element.childNodes.length).to.equal(2);
+    expect(element.childNodes[0].id).to.equal("a");
+    expect(element.childNodes[1].id).to.equal("c");
+  });
 });
