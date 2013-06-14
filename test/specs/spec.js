@@ -8,18 +8,18 @@ describe("smart-collection", function() {
   describe("add()", function() {
     it("adds an element of the type specified", function() {
       element.add("div");
-      expect(element.childNodes.length).to.equal(1);
-      expect(element.childNodes[0].nodeName).to.equal("DIV");
+      expect(element.items.length).to.equal(1);
+      expect(element.items[0].nodeName).to.equal("DIV");
     });
 
     it("attaches properties to the element if they are declared as a second argument", function() {
       element.add("div", {name: "Dave"}); //Dave the div
-      expect(element.childNodes[0].name).to.equal("Dave");
+      expect(element.items[0].name).to.equal("Dave");
     });
 
     it("adds a batch of elements if a number is passed as second argument", function() {
       element.add("div", 3);
-      expect(element.childNodes.length).to.equal(3);
+      expect(element.items.length).to.equal(3);
     });
 
     it("adds a batch of elements, attaching properties to them if an array of properties is passed as second argument", function() {
@@ -32,7 +32,7 @@ describe("smart-collection", function() {
       }),
       childs;
       element.add("div", models);
-      childs = element.childNodes;
+      childs = element.items;
 
       expect(childs.length).to.equal(3);
       childs.forEach(function(ele) {
@@ -48,7 +48,7 @@ describe("smart-collection", function() {
     beforeEach(function() {
       div = document.createElement("div");
       div.id = "a";
-      element.appendChild(div);
+      element.push(div);
     });
 
     it("get() retrieves the item by id", function() {
@@ -57,15 +57,15 @@ describe("smart-collection", function() {
 
     it("remove() removes the item matching an id", function() {
       element.remove("a");
-      expect(element.childNodes.length).to.equal(0);
+      expect(element.items.length).to.equal(0);
     });
   });
 
   it("removeByIndex() works", function() {
     element.add("div", [{id: "a"}, {id: "b"}, {id: "c"}]);
     element.removeByIndex(1);
-    expect(element.childNodes.length).to.equal(2);
-    expect(element.childNodes[0].id).to.equal("a");
-    expect(element.childNodes[1].id).to.equal("c");
+    expect(element.items.length).to.equal(2);
+    expect(element.items[0].id).to.equal("a");
+    expect(element.items[1].id).to.equal("c");
   });
 });

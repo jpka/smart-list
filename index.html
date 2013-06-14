@@ -3,6 +3,7 @@
     <style>
       @host {}
     </style>  
+    <div id="container"></div>
   </template>
   <script>
     function add(el, nodeName, props) {
@@ -14,7 +15,7 @@
           element[prop] = props[prop];
         }
       }
-      el.appendChild(element);
+      el.push(element);
     }
 
     function addBatch(el, nodeName, num) {
@@ -30,6 +31,15 @@
     }
 
     Polymer.register(this, {
+      ready: function() {
+        var self = this;
+        this.children.forEach(function(node) {
+          self.$.container.appendChild(node);
+        });
+      },
+      get items() {
+        return this.$.container.childNodes;
+      },
       add: function(nodeName, secondParam) {
         switch (typeof secondParam) {
           case "undefined":
@@ -47,14 +57,17 @@
           break;
         }
       },
+      push: function(item) {
+        this.$.container.appendChild(item);
+      },
       get: function(id) {
-        return this.querySelector("#" + id);
+        return this.$.container.querySelector("#" + id);
       },
       remove: function(id) {
-        this.removeChild(this.get(id));
+        this.$.container.removeChild(this.get(id));
       },
       removeByIndex: function(index) {
-        this.removeChild(this.childNodes[index]);
+        this.$.container.removeChild(this.items[index]);
       }
     });
   </script>
