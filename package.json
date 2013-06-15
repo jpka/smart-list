@@ -1,5 +1,5 @@
 {
-  "name": "smart-collection",
+  "name": "smart-list",
   "version": "0.0.0",
   "description": "",
   "directories": {
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jpka/smart-collection.git"
+    "url": "git://github.com/jpka/smart-list.git"
   },
   "author": "Juan Pablo Kaniefsky",
   "license": "MIT"
