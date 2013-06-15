@@ -6,28 +6,18 @@
     <div id="container"></div>
   </template>
   <script>
-    function add(el, nodeName, props) {
-      var element = document.createElement(nodeName),
-      prop;
+    function process(args) {
+      var item = args[0],
+      props = args[1];
+      if (typeof item === "object") return item;
 
+      item = document.createElement(item);
       if (props) {
         for (prop in props) {
-          element[prop] = props[prop];
+          item[prop] = props[prop];
         }
       }
-      el.push(element);
-    }
-
-    function addBatch(el, nodeName, num) {
-      for (var i = 0; i < num; i++) {
-        add(el, nodeName);
-      }
-    }
-
-    function addBatchWithProps(el, nodeName, propsList) {
-      propsList.forEach(function(props) {
-        add(el, nodeName, props);
-      });
+      return item;
     }
 
     Polymer.register(this, {
@@ -40,25 +30,11 @@
       get items() {
         return this.$.container.childNodes;
       },
-      add: function(nodeName, secondParam) {
-        switch (typeof secondParam) {
-          case "undefined":
-            add(this, nodeName);
-          break;
-          case "number":
-            addBatch(this, nodeName, secondParam);
-          break;
-          case "object":
-            if (Object.prototype.toString.call(secondParam).indexOf("Array") > -1) {
-            addBatchWithProps(this, nodeName, secondParam);
-          } else {
-            add(this, nodeName, secondParam);
-          }
-          break;
-        }
+      push: function() {
+        this.$.container.appendChild(process(arguments));
       },
-      push: function(item) {
-        this.$.container.appendChild(item);
+      unshift: function() {
+        this.$.container.insertBefore(process(arguments), this.items[0]);
       },
       get: function(id) {
         return this.$.container.querySelector("#" + id);
