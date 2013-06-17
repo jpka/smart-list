@@ -1,8 +1,8 @@
-describe("smart-collection", function() {  
+describe("smart-list", function() {  
   var element;
 
   beforeEach(function() {
-    element = fixtures.window().document.createElement("smart-collection");
+    element = fixtures.window().document.createElement("smart-list");
   });
 
   describe("insert()", function() {
