@@ -5,25 +5,21 @@ describe("smart-collection", function() {
     element = fixtures.window().document.createElement("smart-collection");
   });
 
-  describe("push()", function() {
+  describe("insert()", function() {
     it("adds an element of the type specified", function() {
-      element.push("div");
-      expect(element.items.length).to.equal(1);
-      expect(element.items[0].nodeName).to.equal("DIV");
-    });
-
-    it("attaches properties to the element if they are declared as a second argument", function() {
-      element.push("div", {name: "Dave"}); //Dave the div
-      expect(element.items[0].name).to.equal("Dave");
-    });
-  });
-
-  describe("unshift()", function() {
-    it("works", function() {
-      element.$.container.appendChild(document.createElement("div"));
-      element.unshift("span");
-      expect(element.items.length).to.equal(2);
+      element.insert(0, "div");
+      element.insert(0, "span");
+      element.insert(1, "ul");
+      element.insert(3, "input");
       expect(element.items[0].nodeName).to.equal("SPAN");
+      expect(element.items[1].nodeName).to.equal("UL");
+      expect(element.items[2].nodeName).to.equal("DIV");
+      expect(element.items[3].nodeName).to.equal("INPUT");
+    });
+
+    it("attaches properties to the element if they are declared as a third argument", function() {
+      element.insert(0, "div", {name: "Dave"}); //Dave the div
+      expect(element.items[0].name).to.equal("Dave");
     });
   });
 
@@ -31,7 +27,7 @@ describe("smart-collection", function() {
     var div;
 
     beforeEach(function() {
-      div = document.createElement("div");
+      div = fixtures.window().document.createElement("div");
       div.id = "a";
       element.$.container.appendChild(div);
     });

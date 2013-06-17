@@ -6,20 +6,6 @@
     <div id="container"></div>
   </template>
   <script>
-    function process(args) {
-      var item = args[0],
-      props = args[1];
-      if (typeof item === "object") return item;
-
-      item = document.createElement(item);
-      if (props) {
-        for (prop in props) {
-          item[prop] = props[prop];
-        }
-      }
-      return item;
-    }
-
     Polymer.register(this, {
       ready: function() {
         var self = this;
@@ -30,11 +16,24 @@
       get items() {
         return this.$.container.childNodes;
       },
-      push: function() {
-        this.$.container.appendChild(process(arguments));
+      push: function(node, props) {
+        this.insert(this.items.length, node, props);
       },
-      unshift: function() {
-        this.$.container.insertBefore(process(arguments), this.items[0]);
+      unshift: function(node, props) {
+        this.insert(0, node, props);
+      },
+      insert: function(i, node, props) {
+        if (typeof node === "string") node = document.createElement(node);
+        if (props) {
+          for (prop in props) {
+            node[prop] = props[prop];
+          }
+        }
+        if (i >= this.items.length) {
+          this.$.container.appendChild(node);
+        } else {
+          this.$.container.insertBefore(node, this.items[i]);
+        }
       },
       get: function(id) {
         return this.$.container.querySelector("#" + id);
