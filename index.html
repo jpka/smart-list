@@ -38,11 +38,17 @@
       get: function(id) {
         return this.$.container.querySelector("#" + id);
       },
-      remove: function(id) {
-        this.$.container.removeChild(this.get(id));
+      rm: function(id) {
+        var el = this.get(id);
+        if (el) {
+          this.$.container.removeChild(el);
+        }
       },
-      removeByIndex: function(index) {
-        this.$.container.removeChild(this.items[index]);
+      rmByIndex: function(index) {
+        var el = this.items[index];
+        if (el) {
+          this.$.container.removeChild(el);
+        }
       }
     });
   </script>

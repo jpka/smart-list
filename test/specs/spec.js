@@ -23,7 +23,7 @@ describe("smart-list", function() {
     });
   });
 
-  describe("get() and remove()", function() {
+  describe("get() and rm()", function() {
     var div;
 
     beforeEach(function() {
@@ -37,16 +37,16 @@ describe("smart-list", function() {
     });
 
     it("remove() removes the item matching an id", function() {
-      element.remove("a");
+      element.rm("a");
       expect(element.items.length).to.equal(0);
     });
   });
 
-  it("removeByIndex() works", function() {
+  it("rmByIndex() works", function() {
     element.push("div", {id: "a"});
     element.push("div", {id: "b"});
     element.push("div", {id: "c"});
-    element.removeByIndex(1);
+    element.rmByIndex(1);
     expect(element.items.length).to.equal(2);
     expect(element.items[0].id).to.equal("a");
     expect(element.items[1].id).to.equal("c");
