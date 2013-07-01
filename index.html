@@ -1,4 +1,34 @@
 <element name="smart-list">
+  <style polymer-scope="global">
+    @-webkit-keyframes appear {
+      0% {
+        -webkit-transform: translateY(-100%);
+      }
+
+      100% {
+        -webkit-transform: translateY(0);
+      }
+    }
+
+    @keyframes appear {
+      0% {
+        transform: translateY(-100%);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .appear {
+      z-index: -1;
+      position: relative;
+      -webkit-animation-name: appear;
+      -webkit-animation-duration: 1s;
+      animation-name: appear;
+      animation-duration: 1s;
+    }
+  </style>
   <template>
     <content></content>
   </template>
@@ -27,18 +57,18 @@
           this.insertBefore(node, this.items[i]);
         }
 
-        this.showItem(i);
+        this.animateEntrance(i);
       },
-      showItem: function(i) {
-        var node = this.items[i];
+      animateEntrance: function(i) {
+        var node = this.items[i],
+        handler = function() {
+          this.classList.remove("appear");
+          this.style.zIndex = 0;
+        };
 
-        node.style["z-index"] = -i;
-        node.style.position = "relative";
-        node.style["margin-top"] = (-parseInt(node.clientHeight, 10)) + "px";
-        setTimeout(function() {
-          node.style.transition = "margin-top 1s";
-          node.style["margin-top"] = "0px";
-        }, 0);
+        node.addEventListener("webkitAnimationEnd", handler);
+        node.addEventListener("animationend", handler);
+        node.classList.add("appear");
       },
       get: function(id) {
         return this.querySelector("#" + id);
