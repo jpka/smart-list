@@ -1,20 +1,11 @@
 <element name="smart-list">
   <template>
-    <style>
-      @host {}
-    </style>  
-    <div id="container"></div>
+    <content></content>
   </template>
   <script>
     Polymer.register(this, {
-      ready: function() {
-        var self = this;
-        this.children.forEach(function(node) {
-          self.$.container.appendChild(node);
-        });
-      },
       get items() {
-        return this.$.container.childNodes;
+        return this.children;
       },
       push: function(node, props) {
         this.insert(this.items.length, node, props);
@@ -29,25 +20,39 @@
             node[prop] = props[prop];
           }
         }
+
         if (i >= this.items.length) {
-          this.$.container.appendChild(node);
+          this.appendChild(node);
         } else {
-          this.$.container.insertBefore(node, this.items[i]);
+          this.insertBefore(node, this.items[i]);
         }
+
+        this.showItem(i);
+      },
+      showItem: function(i) {
+        var node = this.items[i];
+
+        node.style["z-index"] = -i;
+        node.style.position = "relative";
+        node.style["margin-top"] = (-parseInt(node.clientHeight, 10)) + "px";
+        setTimeout(function() {
+          node.style.transition = "margin-top 1s";
+          node.style["margin-top"] = "0px";
+        }, 0);
       },
       get: function(id) {
-        return this.$.container.querySelector("#" + id);
+        return this.querySelector("#" + id);
       },
       rm: function(id) {
         var el = this.get(id);
         if (el) {
-          this.$.container.removeChild(el);
+          this.removeChild(el);
         }
       },
       rmByIndex: function(index) {
         var el = this.items[index];
         if (el) {
-          this.$.container.removeChild(el);
+          this.removeChild(el);
         }
       }
     });

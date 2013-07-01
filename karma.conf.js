@@ -10,7 +10,7 @@ basePath = '';
 files = [
   MOCHA,
   MOCHA_ADAPTER,
-  'node_modules/Polymer/polymer.min.js',
+  'components/polymer/polymer.min.js',
   'node_modules/chai/chai.js',
   {pattern: 'index.html', watched: true, served: true, included: false},
   {pattern: 'test/index.html', watched: true, served: true, included: false},

@@ -9,7 +9,6 @@
   "devDependencies": {
     "karma": "~0.8.5",
     "js-fixtures": "~1.2.0",
-    "Polymer": "git://github.com/Polymer/polymer.git",
     "chai": "~1.6.0"
   },
   "scripts": {

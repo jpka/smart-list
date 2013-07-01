@@ -29,7 +29,7 @@ describe("smart-list", function() {
     beforeEach(function() {
       div = fixtures.window().document.createElement("div");
       div.id = "a";
-      element.$.container.appendChild(div);
+      element.appendChild(div);
     });
 
     it("get() retrieves the item by id", function() {
