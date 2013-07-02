@@ -9,7 +9,11 @@
   "devDependencies": {
     "karma": "~0.8.5",
     "js-fixtures": "~1.2.0",
-    "chai": "~1.6.0"
+    "chai": "~1.6.0",
+    "grunt-replace": "~0.4.4",
+    "grunt-contrib-watch": "~0.4.4",
+    "grunt": "~0.4.1",
+    "uglify-js": "~2.3.6"
   },
   "scripts": {
     "test": "node_modules/.bin/karma start"

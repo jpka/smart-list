@@ -1,0 +1,38 @@
+<element name="smart-list">
+  <style polymer-scope="global">
+    @-webkit-keyframes appear {
+      0% {
+        -webkit-transform: translateY(-100%);
+      }
+
+      100% {
+        -webkit-transform: translateY(0);
+      }
+    }
+
+    @keyframes appear {
+      0% {
+        transform: translateY(-100%);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .appear {
+      z-index: -1;
+      position: relative;
+      -webkit-animation-name: appear;
+      -webkit-animation-duration: 1s;
+      animation-name: appear;
+      animation-duration: 1s;
+    }
+  </style>
+  <template>
+    <content></content>
+  </template>
+  <script>
+    @@script
+  </script>
+</element>
