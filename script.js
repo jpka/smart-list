@@ -27,8 +27,9 @@ Polymer.register(this, {
   },
   animateEntrance: function(i) {
     var node = this.items[i],
+    self = this,
     handler = function() {
-      this.classList.remove(this.entranceAnimationClass);
+      this.classList.remove(self.entranceAnimationClass);
       this.style.zIndex = 0;
     };
 
