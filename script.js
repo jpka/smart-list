@@ -31,8 +31,10 @@ Polymer.register(this, {
     handler = function() {
       this.classList.remove(self.entranceAnimationClass);
       this.style.zIndex = 0;
+      node.style.marginTop = 0;
     };
 
+    node.style.marginTop = (-parseInt(node.clientHeight, 10)) + "px";
     node.addEventListener("webkitAnimationEnd", handler);
     node.addEventListener("animationend", handler);
     node.classList.add(this.entranceAnimationClass);

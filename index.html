@@ -1,22 +1,14 @@
 <element name="smart-list" attributes="entranceAnimationClass">
   <style polymer-scope="global">
     @-webkit-keyframes appear {
-      0% {
-        -webkit-transform: translateY(-100%);
-      }
-
-      100% {
-        -webkit-transform: translateY(0);
+      to {
+        margin-top: 0;
       }
     }
 
     @keyframes appear {
-      0% {
-        transform: translateY(-100%);
-      }
-
-      100% {
-        transform: translateY(0);
+      to {
+        margin-top: 0;
       }
     }
 
@@ -33,6 +25,6 @@
     <content></content>
   </template>
   <script>
-    Polymer.register(this,{entranceAnimationClass:"_smart-list-appear",get items(){return this.children},push:function(t,i){this.insert(this.items.length,t,i)},unshift:function(t,i){this.insert(0,t,i)},insert:function(t,i,n){if("string"==typeof i&&(i=document.createElement(i)),n)for(prop in n)i[prop]=n[prop];t>=this.items.length?this.appendChild(i):this.insertBefore(i,this.items[t]),this.animateEntrance(t)},animateEntrance:function(t){var i=this.items[t],n=this,e=function(){this.classList.remove(n.entranceAnimationClass),this.style.zIndex=0};i.addEventListener("webkitAnimationEnd",e),i.addEventListener("animationend",e),i.classList.add(this.entranceAnimationClass)},get:function(t){return this.querySelector("#"+t)},rm:function(t){var i=this.get(t);i&&this.removeChild(i)},rmByIndex:function(t){var i=this.items[t];i&&this.removeChild(i)}});
+    Polymer.register(this,{entranceAnimationClass:"_smart-list-appear",get items(){return this.children},push:function(t,i){this.insert(this.items.length,t,i)},unshift:function(t,i){this.insert(0,t,i)},insert:function(t,i,e){if("string"==typeof i&&(i=document.createElement(i)),e)for(prop in e)i[prop]=e[prop];t>=this.items.length?this.appendChild(i):this.insertBefore(i,this.items[t]),this.animateEntrance(t)},animateEntrance:function(t){var i=this.items[t],e=this,n=function(){this.classList.remove(e.entranceAnimationClass),this.style.zIndex=0,i.style.marginTop=0};i.style.marginTop=-parseInt(i.clientHeight,10)+"px",i.addEventListener("webkitAnimationEnd",n),i.addEventListener("animationend",n),i.classList.add(this.entranceAnimationClass)},get:function(t){return this.querySelector("#"+t)},rm:function(t){var i=this.get(t);i&&this.removeChild(i)},rmByIndex:function(t){var i=this.items[t];i&&this.removeChild(i)}});
   </script>
 </element>
