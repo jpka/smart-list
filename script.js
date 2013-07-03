@@ -1,4 +1,5 @@
 Polymer.register(this, {
+  entranceAnimationClass: "_smart-list-appear",
   get items() {
     return this.children;
   },
@@ -27,13 +28,13 @@ Polymer.register(this, {
   animateEntrance: function(i) {
     var node = this.items[i],
     handler = function() {
-      this.classList.remove("appear");
+      this.classList.remove(this.entranceAnimationClass);
       this.style.zIndex = 0;
     };
 
     node.addEventListener("webkitAnimationEnd", handler);
     node.addEventListener("animationend", handler);
-    node.classList.add("appear");
+    node.classList.add(this.entranceAnimationClass);
   },
   get: function(id) {
     return this.querySelector("#" + id);
