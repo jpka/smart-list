@@ -1,15 +1,19 @@
-Polymer.register(this, {
-  entranceAnimationClass: "_smart-list-appear",
+Polymer("smart-list", {
+  applyAuthorStyles: true,
+
+  newMessage: "There are new items, do you want to see them?",
+  newItems: [],
+
   get items() {
     return this.children;
   },
-  push: function(node, props) {
-    this.insert(this.items.length, node, props);
+  push: function(node, props, soft) {
+    return this.insert(this.items.length, node, props, soft);
   },
-  unshift: function(node, props) {
-    this.insert(0, node, props);
+  unshift: function(node, props, soft) {
+    return this.insert(0, node, props, soft);
   },
-  insert: function(i, node, props) {
+  insert: function(i, node, props, soft) {
     if (typeof node === "string") node = document.createElement(node);
     if (props) {
       for (prop in props) {
@@ -23,35 +27,44 @@ Polymer.register(this, {
       this.insertBefore(node, this.items[i]);
     }
 
-    this.animateEntrance(i);
-  },
-  animateEntrance: function(i) {
-    var node = this.items[i],
-    self = this,
-    handler = function() {
-      this.classList.remove(self.entranceAnimationClass);
-      this.style.zIndex = 0;
-      node.style.marginTop = 0;
-    };
+    if (soft) {
+      node.style.display = "none";
+      this.newItems.push(node);
+      this.$.newPrompt.style.visibility = "visible";
+    }
 
-    node.style.marginTop = (-parseInt(node.clientHeight, 10)) + "px";
-    node.addEventListener("webkitAnimationEnd", handler);
-    node.addEventListener("animationend", handler);
-    node.classList.add(this.entranceAnimationClass);
+    return node;
   },
   get: function(id) {
     return this.querySelector("#" + id);
   },
-  rm: function(id) {
+  removeById: function(id, soft) {
     var el = this.get(id);
     if (el) {
-      this.removeChild(el);
+      this.removeItem(el, soft);
     }
   },
-  rmByIndex: function(index) {
+  removeByIndex: function(index, soft) {
     var el = this.items[index];
     if (el) {
-      this.removeChild(el);
+      this.removeItem(el, soft);
     }
+  },
+  removeItem: function(item, soft) {
+    var curtain = document.createElement("div");
+    curtain.className = "curtain";
+
+    if (soft) {
+      item.appendChild(curtain);
+    } else {
+      this.removeChild(item);
+    }
+  },
+  showNew: function() {
+    this.newItems.forEach(function(item) {
+      item.style.display = "block";
+    });
+    this.$.newPrompt.style.visibility = "hidden";
+    this.newItems = [];
   }
 });

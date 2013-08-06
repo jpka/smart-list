@@ -11,11 +11,22 @@
     </style>
   </head>
   <body>
-    <smart-list id="list" class="listy">
+    <smart-list id="list" softUpdates="true" class="listy">
       <div class="item">one</div>
       <div class="item">two</div>
       <div class="item">three</div>
     </smart-list>
+
+    <script>
+      window.addEventListener("WebComponentsReady", function() {
+        setTimeout(function() {
+          document.querySelector("#list").unshift("div", {innerHTML: "four", className: "list"});
+          setTimeout(function() {
+            document.querySelector("#list").push("div", {innerHTML: "five", className: "list"}, true);
+          }, 1500);
+        }, 1500);
+      });
+    </script>
   </body>
 </html>
 
